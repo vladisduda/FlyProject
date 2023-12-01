@@ -7,12 +7,24 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/sleep', function (req, res, next) {
-	res.send('<h1>Сон</h1>')
+	res.render('gif', {
+		title: 'Сон',
+		picture: 'images/sleep.gif',
+		desc: 'Естественное периодическое состояние покоя и расслабления организма, сопровождающееся минимальным уровнем сознательной деятельности.',
+	})
 })
 router.get('/eats', function (req, res, next) {
-	res.send('<h1>Прием пищи</h1>')
+	res.render('gif', {
+		title: 'Прием пищи',
+		picture: 'images/eats.gif',
+		desc: 'Процесс принятия готовой пищи, совершаемый в определённый период времени, обычно несколько раз в сутки.',
+	})
 })
 router.get('/thinking', function (req, res, next) {
-	res.send('<h1>Размышление</h1>')
+	res.render('gif', {
+		title: 'Размышление',
+		picture: 'images/thinking.gif',
+		desc: 'Процесс обдумывания или размышления над какой-либо темой или идеей.',
+	})
 })
 module.exports = router
