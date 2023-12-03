@@ -9,6 +9,7 @@ var fly = new Fly({
 	nick: 'Chmonya',
 })
 console.log(fly)
+
 fly.save().then(function (err, fly, affected) {
 	console.log(fly.title)
 })
