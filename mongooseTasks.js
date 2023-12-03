@@ -1,13 +1,19 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/test')
-const Gif = mongoose.model('Gif', { name: String })
-const kitty = new Gif({ name: 'Чмоня' })
+mongoose.connect('mongodb://127.0.0.1:27017/testik')
 
-kitty
-	.save()
-	.then(() => {
-		console.log('БРРР')
+var schema = mongoose.Schema({ name: String })
+
+schema.methods.scholoh = function () {
+	console.log(this.get('name') + ' подумал, покушал и лег спать')
+}
+
+const Gif = mongoose.model('Gif', schema)
+
+const Meme = new Gif({ name: 'Рома' })
+Meme.save()
+	.then(function () {
+		Meme.scholoh()
 	})
-	.catch(err => {
+	.catch(function (err) {
 		console.error(err)
 	})
