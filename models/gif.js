@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
-var flySchema = new Schema({
+var gifSchema = new Schema({
 	title: String,
 	nick: {
 		type: String,
@@ -14,4 +14,4 @@ var flySchema = new Schema({
 		default: Date.now,
 	},
 })
-module.exports.Fly = mongoose.model('Fly', flySchema)
+module.exports.Gif = mongoose.model('Gif', gifSchema)
