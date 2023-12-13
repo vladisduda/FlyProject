@@ -2,10 +2,6 @@ var express = require('express')
 var router = express.Router()
 var Gif = require('../models/gif').Gif
 
-router.get('/:nick', function (req, res, next) {
-	res.send(req.params.nick)
-})
-
 router.get('/:nick', async (req, res, next) => {
 	try {
 		const gif = await Gif.findOne({ nick: req.params.nick })

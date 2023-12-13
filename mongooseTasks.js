@@ -1,15 +1,15 @@
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://127.0.0.1:27017/test1')
-var Fly = require('./models/fly').Fly
+var Gif = require('./models/gif').Gif
 
 var schema = mongoose.Schema({ name: String })
 
-var fly = new Fly({
+var gif = new Gif({
 	title: 'Чмоня',
 	nick: 'Chmonya',
 })
-console.log(fly)
+console.log(gif)
 
-fly.save().then(function (err, fly, affected) {
-	console.log(fly.title)
+gif.save().then(function (err, gif, affected) {
+	console.log(gif.title)
 })

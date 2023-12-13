@@ -8,8 +8,8 @@ async function run() {
 		var database = client.db('fly')
 		database.dropDatabase()
 		database = client.db('fly')
-		const gif = database.collection('gif')
-		const result = await gif.insertMany(data)
+		const gifs = database.collection('gifs')
+		const result = await gifs.insertMany(data)
 		console.log(`${result.insertedCount} documents were inserted`)
 	} finally {
 		await client.close()
