@@ -1,22 +1,34 @@
 var express = require('express')
 var router = express.Router()
 var Gif = require('../models/gif').Gif
+var async = require('async')
 
-router.get('/:nick', async (req, res, next) => {
+router.get('/:nick', async function (req, res, next) {
 	try {
-		const gif = await Gif.findOne({ nick: req.params.nick })
-		console.log(gif)
+		const [gif, gifs] = await Promise.all([
+			Gif.findOne({ nick: req.params.nick }),
+			Gif.find({}, { _id: 0, title: 1, nick: 1 }),
+		])
+
 		if (!gif) {
-			throw new Error('от так беда(((')
+			throw new Error('Ошибочка')
 		}
-		res.render('gif', {
-			title: gif.title,
-			picture: gif.avatar,
-			desc: gif.desc,
-		})
+
+		renderGif(res, gif.title, gif.avatar, gif.desc, gifs)
 	} catch (err) {
 		next(err)
 	}
 })
+
+function renderGif(res, title, picture, desc, gifs) {
+	console.log(gifs)
+
+	res.render('gif', {
+		title: title,
+		picture: picture,
+		desc: desc,
+		menu: gifs,
+	})
+}
 
 module.exports = router
