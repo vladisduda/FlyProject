@@ -11,6 +11,7 @@ router.get('/', async (req, res, next) => {
 			title: 'пользователь',
 			picture: 'images/hallo.gif',
 			menu: menu,
+			counter: req.session.counter,
 		})
 	} catch (err) {
 		next(err)
