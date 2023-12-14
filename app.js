@@ -25,12 +25,14 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
+var MongoStore = require('connect-mongo')
 app.use(
 	session({
 		secret: 'fly',
 		cookie: { maxAge: 60 * 1000 },
 		resave: true,
 		saveUninitialized: true,
+		store: MongoStore.create({ mongoUrl: 'mongodb://localhost/fly' }),
 	})
 )
 app.use('/', indexRouter)
