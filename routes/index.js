@@ -6,7 +6,8 @@ const Gif = require('../models/gif').Gif
 router.get('/', async (req, res, next) => {
 	try {
 		const menu = await Gif.find({}, { _id: 0, title: 1, nick: 1 })
-		res.render('index', {
+
+		res.cookie('greeting', 'Hi!!!').render('index', {
 			title: 'пользователь',
 			picture: 'images/hallo.gif',
 			menu: menu,
