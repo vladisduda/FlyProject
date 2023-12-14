@@ -27,7 +27,6 @@ function renderGif(res, title, picture, desc, gifs) {
 		title: title,
 		picture: picture,
 		desc: desc,
-		menu: gifs,
 	})
 }
 

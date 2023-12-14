@@ -7,6 +7,7 @@ var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/fly')
 var session = require('express-session')
+var Gif = require('./models/gif').Gif
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
@@ -40,6 +41,7 @@ app.use(function (req, res, next) {
 	next()
 })
 
+app.use(require('./middleware/createMenu.js'))
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/gifs', gifsRouter)

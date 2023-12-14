@@ -8,9 +8,9 @@ router.get('/', async (req, res, next) => {
 		const menu = await Gif.find({}, { _id: 0, title: 1, nick: 1 })
 		req.session.greeting = 'Hi!!!'
 		res.render('index', {
-			title: 'пользователь',
+			title: 'Главная',
+			name: 'пользователь',
 			picture: 'images/hallo.gif',
-			menu: menu,
 			counter: req.session.counter,
 		})
 	} catch (err) {

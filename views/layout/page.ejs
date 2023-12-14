@@ -18,13 +18,11 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/">Главная</a>
 					</li>
-					<% menu.forEach(gif => { %>
+					<% if(typeof nav == 'object' && nav){ nav.forEach(function(gif){ %>
 					<li class="nav-item">
-						<a class="nav-link" href="/gifs/<%= gif.nick %>"
-							><%= gif.title %></a
-						>
+						<a class="nav-link" href="/gifs/<%=gif.nick%>"><%=gif.title%></a>
 					</li>
-					<% }) %>
+					<% })} %>
 				</ul>
 			</div>
 		</nav>
