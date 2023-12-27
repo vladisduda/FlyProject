@@ -6,8 +6,6 @@ var mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/fly')
 var logger = require('morgan')
 var bodyParser = require('body-parser')
-var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/fly')
 var session = require('express-session')
 var Gif = require('./models/gif').Gif
 

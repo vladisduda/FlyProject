@@ -21,5 +21,6 @@ router.get('/', async (req, res, next) => {
 router.get('/logreg', function (req, res, next) {
 	res.render('logreg', { title: 'Вход' })
 })
+router.post('/logreg', function (req, res, next) {})
 
 module.exports = router
