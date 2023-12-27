@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+const checkAuth = require('../middleware/checkAuth.js')
 const Gif = require('../models/gif').Gif
 const User = require('../models/user').User
 

@@ -1,9 +1,10 @@
 var express = require('express')
 var router = express.Router()
+const checkAuth = require('../middleware/checkAuth.js')
 var Gif = require('../models/gif').Gif
 var async = require('async')
 
-router.get('/:nick', async function (req, res, next) {
+router.get('/:nick', checkAuth, async function (req, res, next) {
 	try {
 		const [gif, gifs] = await Promise.all([
 			Gif.findOne({ nick: req.params.nick }),
