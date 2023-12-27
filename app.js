@@ -38,6 +38,7 @@ app.use(
 )
 app.use(function (req, res, next) {
 	req.session.counter = req.session.counter + 1 || 1
+	res.locals.counter = req.session.counter
 	next()
 })
 

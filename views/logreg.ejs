@@ -1,41 +1,39 @@
 <% layout('./layout/page.ejs') %>
+<div class="container d-flex justify-content-center align-items-center">
+	<div class="col-md-3">
+		<h1 class="text-center">Авторизация</h1>
+		<form class="form-horizontal" action="/logreg" method="post">
+			<div class="form-group">
+				<label class="control-label col-sm-12">Имя</label>
+				<div class="col-sm-12">
+					<input
+						class="form-control"
+						type="text"
+						placeholder="Имя"
+						name="username"
+					/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-12">Пароль</label>
+				<div class="col-sm-12">
+					<input
+						class="form-control"
+						type="password"
+						placeholder="Пароль"
+						name="password"
+					/>
+				</div>
+			</div>
+			<br />
+			<div class="col-sm-12">
+				<input class="btn btn-primary w-100" type="submit" value="Войти" />
+			</div>
 
-<div class="conteiner">
-	<h1>Регистрация и вход</h1>
-	<p>
-		Введите имя пользователя и пароль, если такого пользователя нет, то он будет
-		создан.
-	</p>
-	<form class="form-horizontal" action="/logreg" method="post">
-		<div class="form-group">
-			<label class="control-label col-sm-1">Имя</label>
-			<div class="col-sm-5">
-				<input
-					class="form-control"
-					type="text"
-					placeholder="Введите имя"
-					name="username"
-				/>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-sm-1">Пароль</label>
-			<div class="col-sm-5">
-				<input
-					class="form-control"
-					type="password"
-					placeholder="Введите пароль"
-					name="password"
-				/>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-1 col-sm-5">
-				<input class="btn btn-primary" type="submit" value="Войти" />
-			</div>
-		</div>
-		<% if(error) { %>
-		<div class="alert alert-danger"><%= error %></div>
-		<% } %>
-	</form>
+			<% if(error) { %>
+			<br />
+			<div class="alert alert-danger col-sm-12"><%= error %></div>
+			<% } %>
+		</form>
+	</div>
 </div>
