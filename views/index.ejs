@@ -1,4 +1,4 @@
 <% layout('./layout/page.ejs') %>
-<h1>Приветствую <%= name %></h1>
+<h1>Приветствую <% if(user) {%> пользователь <% }else{ %> гость <% } %></h1>
 <img src="<%= picture %>" alt="" style="width: 300px" />
 <h2>Счетчик: <%= counter %></h2>
