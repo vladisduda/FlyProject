@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 const Gif = require('../models/gif').Gif
+const User = require('../models/user').User
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
@@ -21,6 +22,31 @@ router.get('/', async (req, res, next) => {
 router.get('/logreg', function (req, res, next) {
 	res.render('logreg', { title: 'Вход' })
 })
-router.post('/logreg', function (req, res, next) {})
+
+router.post('/logreg', function (req, res, next) {
+	var username = req.body.username
+	var password = req.body.password
+	User.findOne({ username: username })
+		.then(user => {
+			if (user) {
+				if (user.checkPassword(password)) {
+					req.session.user = user._id
+					res.redirect('/')
+				} else {
+					res.render('logreg', { title: 'Вход' })
+				}
+			} else {
+				var newUser = new User({ username: username, password: password })
+				return newUser.save()
+			}
+		})
+		.then(newUser => {
+			req.session.user = newUser._id
+			res.redirect('/')
+		})
+		.catch(err => {
+			next(err)
+		})
+})
 
 module.exports = router
