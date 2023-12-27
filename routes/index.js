@@ -10,7 +10,6 @@ router.get('/', async (req, res, next) => {
 		req.session.greeting = 'Hi!!!'
 		res.render('index', {
 			title: 'Главная',
-			name: 'пользователь',
 			picture: 'images/hallo.gif',
 			counter: req.session.counter,
 		})
@@ -23,30 +22,35 @@ router.get('/logreg', function (req, res, next) {
 	res.render('logreg', { title: 'Вход', error: null })
 })
 
-router.post('/logreg', function (req, res, next) {
-	var username = req.body.username
-	var password = req.body.password
-	User.findOne({ username: username })
-		.then(user => {
-			if (user) {
-				if (user.checkPassword(password)) {
-					req.session.user = user._id
-					res.redirect('/')
-				} else {
-					res.render('logreg', { title: 'Вход', error: 'Пароль не верный' })
-				}
-			} else {
-				var newUser = new User({ username: username, password: password })
-				return newUser.save()
-			}
-		})
-		.then(newUser => {
-			req.session.user = newUser._id
-			res.redirect('/')
-		})
-		.catch(err => {
-			next(err)
-		})
-})
+router.post('/logreg', async function (req, res, next) {
+	try {
+		var username = req.body.username
+		var password = req.body.password
+		const user = await User.findOne({ username: username })
 
+		if (user) {
+			if (user.checkPassword(password)) {
+				req.session.user = user._id
+				res.redirect('/')
+			} else {
+				res.render('logreg', {
+					title: 'Вход',
+					error: 'Пароль не верный',
+				})
+			}
+		} else {
+			var newUser = new User({ username: username, password: password })
+			const savedUser = await newUser.save()
+			req.session.user = savedUser._id
+			res.redirect('/')
+		}
+	} catch (err) {
+		next(err)
+	}
+})
+router.post('/logout', function (req, res, next) {
+	req.session.destroy()
+	res.locals.user = null
+	res.redirect('/')
+})
 module.exports = router
