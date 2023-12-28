@@ -1,28 +1,18 @@
 <% layout('./layout/page.ejs') %>
 <div class="container d-flex justify-content-center align-items-center">
 	<div class="col-md-3">
-		<h1 class="text-center">Авторизация</h1>
+		<h1>Авторизация</h1>
 		<form class="form-horizontal" action="/logreg" method="post">
 			<div class="form-group">
 				<label class="control-label col-sm-12">Имя</label>
 				<div class="col-sm-12">
-					<input
-						class="form-control"
-						type="text"
-						placeholder="Имя"
-						name="username"
-					/>
+					<input class="form-control" type="text" name="username" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-12">Пароль</label>
 				<div class="col-sm-12">
-					<input
-						class="form-control"
-						type="password"
-						placeholder="Пароль"
-						name="password"
-					/>
+					<input class="form-control" type="password" name="password" />
 				</div>
 			</div>
 			<br />
@@ -32,7 +22,15 @@
 
 			<% if(error) { %>
 			<br />
-			<div class="alert alert-danger col-sm-12"><%= error %></div>
+			<div class="alert alert-danger col-sm-12" id="error-message">
+				<%= error %>
+			</div>
+			<script>
+				// Скрывать сообщение об ошибке через 2 секунды
+				setTimeout(function () {
+					document.getElementById('error-message').style.display = 'none'
+				}, 2000)
+			</script>
 			<% } %>
 		</form>
 	</div>

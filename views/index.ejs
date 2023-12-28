@@ -1,10 +1,16 @@
 <% layout('./layout/page.ejs') %>
 <div class="text-center">
 	<p>
-		<img src="<%= picture %>" class="rounded" alt="" style="width: 300px" />
+		<% if(user) {%>
+		<img src="<%= pictureUser %>" class="rounded" style="width: 400px" /> <%
+		}else{ %>
+		<img src="<%= pictureGuest %>" class="rounded" style="width: 400px" /> <% }
+		%>
 	</p>
-	<h1>Приветствую <% if(user) {%> пользователь <% }else{ %> гость <% } %></h1>
-	<p>
+	<h1 class="h3 mb-3 fw-normal">
+		Приветствую <% if(user) {%> пользователь <% }else{ %> гость <% } %>
+	</h1>
+	<p class="lead">
 		<% if(user) {%> <% }else{ %> Для доступа к другим страницам тебе необходимо
 		пройти регистрацию или войти в аккаунт <% } %>
 	</p>

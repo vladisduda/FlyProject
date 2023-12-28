@@ -11,7 +11,8 @@ router.get('/', async (req, res, next) => {
 		req.session.greeting = 'Hi!!!'
 		res.render('index', {
 			title: 'Главная',
-			picture: 'images/hallo.gif',
+			pictureGuest: 'images/guest.gif',
+			pictureUser: 'images/user.gif',
 			counter: req.session.counter,
 		})
 	} catch (err) {
@@ -25,27 +26,52 @@ router.get('/logreg', function (req, res, next) {
 
 router.post('/logreg', async function (req, res, next) {
 	try {
-		var username = req.body.username
-		var password = req.body.password
-		const user = await User.findOne({ username: username })
+		const username = req.body.username
+		const password = req.body.password
+
+		// Проверка наличия значения в полях "Имя" и "Пароль"
+		if (!username || !password) {
+			// Если поля не заполнены, отображаем ошибку
+			return res.render('logreg', {
+				title: 'Вход',
+				error: 'Пожалуйста, заполните все поля',
+			})
+		}
+
+		// Проверка наличия пользователя в базе данных
+		let user = await User.findOne({ username: username })
 
 		if (user) {
+			// Если пользователь существует, проверяем пароль
 			if (user.checkPassword(password)) {
 				req.session.user = user._id
-				res.redirect('/')
+				return res.redirect('/')
 			} else {
-				res.render('logreg', {
+				// Если пароль неверен, отображаем ошибку
+				return res.render('logreg', {
 					title: 'Вход',
-					error: 'Пароль не верный',
+					error: 'Неверный пароль',
 				})
 			}
 		} else {
-			var newUser = new User({ username: username, password: password })
-			const savedUser = await newUser.save()
-			req.session.user = savedUser._id
-			res.redirect('/')
+			// Если пользователя нет, создаем нового
+			user = new User({ username: username, password: password })
+
+			// Сохраняем пользователя
+			try {
+				const savedUser = await user.save()
+				req.session.user = savedUser._id
+				return res.redirect('/')
+			} catch (error) {
+				// Обработка ошибок сохранения пользователя
+				return res.render('logreg', {
+					title: 'Вход',
+					error: 'Произошла ошибка при создании пользователя',
+				})
+			}
 		}
 	} catch (err) {
+		// Обработка других ошибок
 		next(err)
 	}
 })
